@@ -56,33 +56,34 @@ function Player(props) {
 
     return (
         <>
-            {musica ? 
-                <Paper className={classes.player}>
-                <div className={classes.player_img_wrapper}>
-                    <img className={classes.player_img} src={musica.item.album.images[0].url} alt="Capa Música" />
+          {musica ? 
+            <Paper className={classes.player}>
+              <div className={classes.player_img_wrapper}>
+                <img className={classes.player_img} src={musica.item.album.images[0].url} alt="Capa Música" />
+              </div>
+              <div className={classes.player_side}>
+                <div className={classes.player_info}>
+                  <div className={classes.player_name}>
+                    {musica.item.name}
+                  </div>
+                  <div className={classes.player_artist}>
+                    {musica.item.artists[0].name}
+                  </div>
                 </div>
-                <div className={classes.player_side}>
-                    <div className={classes.player_info}>
-                    <div className={classes.player_name}>
-                        {musica.item.name}
-                    </div>
-                    <div className={classes.player_artist}>
-                        {musica.item.artists[0].name}
-                    </div>
-                    </div>
-                    <div className={classes.player_status_wrapper}>
-                    <div className={classes.player_status}>
-                        {musica.is_playing ? "Playing" : "Paused"}
-                    </div>
-                    <div className={classes.progress}>
-                        <div 
-                        className={classes.progress_bar}
-                        style={{width: (musica.progress_ms * 100 / musica.item.duration_ms) + '%'}}
-                        />
-                    </div>
-                    </div>
+                <div className={classes.player_status_wrapper}>
+                  <div className={classes.player_status}>
+                    {musica.is_playing ? "Playing" : "Paused"}
+                  </div>
+                  <div className={classes.progress}>
+                    <div 
+                      className={classes.progress_bar}
+                      style={{width: (musica.progress_ms * 100 / musica.item.duration_ms) + '%'}}
+                    />
+                  </div>
                 </div>
-            </Paper> : null}
+              </div>
+            </Paper> 
+          : null}
         </>
     );
 }
