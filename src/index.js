@@ -2,8 +2,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './index.css'
-import theme from './theme';
+import './assets/css/index.css'
+import theme from './utils/theme';
 
 
 ReactDOM.render(

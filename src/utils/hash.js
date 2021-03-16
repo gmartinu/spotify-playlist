@@ -1,5 +1,5 @@
 // Get the hash of the url
-const hash = window.location.hash
+export const hash = window.location.hash
   .substring(1)
   .split("&")
   .reduce(function(initial, item) {
@@ -10,5 +10,3 @@ const hash = window.location.hash
     return initial;
   }, {});
 window.location.hash = "";
-
-export default hash;
