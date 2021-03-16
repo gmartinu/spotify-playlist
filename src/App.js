@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './assets/css/App.css';
 import Animation from "./components/Animation";
+import AccessOnGithub from './components/Github';
 import Logged from './components/Logged';
 import { hash } from "./utils";
 
@@ -15,6 +16,7 @@ function App() {
       :
         <Logged token={token} />
       }
+      <AccessOnGithub />
     </>
   );
 }

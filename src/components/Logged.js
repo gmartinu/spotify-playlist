@@ -7,6 +7,7 @@ import User from './User';
 import Player from './Player';
 import { makeStyles } from '@material-ui/core';
 
+
 const useStyles = makeStyles((theme) => ({
     logged:{
       background: "#1ED761",
@@ -14,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
       position: "relative",
       display: "flex", 
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
+      zIndex: 1,
     },
 }))
 
@@ -24,6 +26,8 @@ function Logged(props) {
     // State
     const [user, setUser] = useState();
     const [musica, setMusica] = useState();
+    const [back, setBack] = useState(false);
+    const [interval, setIntervalFunc] = useState();
 
     useEffect(() => {
         if(token){
@@ -49,16 +53,47 @@ function Logged(props) {
 
     const refresh_music = (cb) => {
         cb();
-        setInterval(() => {
+        let temp = setInterval(() => {
             cb();
         }, 4000)
+        setIntervalFunc(temp)
     }
+
+    const onClickBackground = () => {
+        setBack(oldValue => !oldValue)
+    }
+
+    const logout = () => {
+        clearInterval(interval);
+        setUser();
+        setMusica();
+        window.location.hash = ""
+        window.location.reload();
+    }
+
     return (
-        <div className={classes.logged}>
+        <div className={classes.logged} style={
+            back ? {
+                backgroundColor: "black"
+            } : {}
+        }>
+            <div style={
+                back ? {
+                    backgroundColor: "black",
+                    backgroundImage: `url(${musica.item.album.images[0].url})`,
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                    position: "absolute",
+                    zIndex: -1,
+                    width: '100%',
+                    height: '100%',
+                    opacity: 0.3
+                } : {}
+            } />
             {user ? 
             <>
-                <User user={user} />
-                <Player musica={musica} />
+                <User logout={logout} user={user} />
+                <Player backgroundChange={onClickBackground} musica={musica} />
             </>
             : null}
         </div>

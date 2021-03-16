@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function User(props) {
-    const { user } = props;
+    const { user, logout } = props;
 
     const classes = useStyles();
 
@@ -34,7 +34,7 @@ function User(props) {
             <Paper onClick={() => window.open(user.external_urls.spotify)} className={classes.userCard}>
                 <img className={classes.userPic} alt="User Logo" src={user.images[0].url} />
             </Paper>
-            <Button variant="contained" color="primary" className={classes.logout}>SAIR</Button>
+            <Button onClick={logout} variant="contained" color="primary" className={classes.logout}>SAIR</Button>
         </>
     );
 }

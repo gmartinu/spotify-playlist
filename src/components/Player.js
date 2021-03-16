@@ -1,5 +1,6 @@
-import { makeStyles, Paper } from '@material-ui/core';
+import { IconButton, makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
+import WallpaperIcon from '@material-ui/icons/Wallpaper';
 
 const useStyles = makeStyles((theme) => ({
     player:{
@@ -10,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
       display: "flex", 
     },
     player_img:{
-      borderTopLeftRadius: 4,
-      borderBottomLeftRadius: 4,
+      borderTopLeftRadius: 3,
+      borderBottomLeftRadius: 3,
       width: 250
     },
     player_side:{
@@ -46,11 +47,15 @@ const useStyles = makeStyles((theme) => ({
     },
     player_info:{
       height: "25%"
+    },
+    player_background:{
+      position: "absolute",
+      color: 'white'
     }
 }))
 
 function Player(props) {
-    const { musica } = props;
+    const { musica, backgroundChange } = props;
 
     const classes = useStyles();
 
@@ -60,6 +65,9 @@ function Player(props) {
             <Paper className={classes.player}>
               <div className={classes.player_img_wrapper}>
                 <img className={classes.player_img} src={musica.item.album.images[0].url} alt="Capa Música" />
+                <IconButton onClick={backgroundChange} className={classes.player_background} aria-label="delete">
+                    <WallpaperIcon />
+                </IconButton>
               </div>
               <div className={classes.player_side}>
                 <div className={classes.player_info}>

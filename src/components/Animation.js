@@ -50,23 +50,23 @@ function Animation() {
         setLogos(oldVal => !oldVal)
         // timeout para retrair as imagens
         setTimeout(() => {
-        setZoom(false);
+            setZoom(false);
         }, 1000)
-    }, 500)
+    }, 750)
     // timeout's para troca de cores menta > verde
     setTimeout(() => {
         setG2M(oldVal => !oldVal)
-    }, 1500)
+    }, 1750)
     setTimeout(() => {
         setM2G(oldVal => !oldVal)
         // timeout para ativar a logo do spotify
         setTimeout(() => {
-        setZoom1(true)
-        setTimeout(() => {
-            setButton(true)
-        }, 500)
+            setZoom1(true)
+            setTimeout(() => {
+                setButton(true)
+            }, 500)
         }, 100)
-    }, 1750)
+    }, 2250)
     },[])
 
     return (
