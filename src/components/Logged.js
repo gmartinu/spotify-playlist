@@ -31,25 +31,48 @@ function Logged(props) {
 
     useEffect(() => {
         if(token){
-        axios.get("https://api.spotify.com/v1/me", {
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        }).then(res => {
-            setUser(res.data)
-            refresh_music(() => {
-                axios.get("https://api.spotify.com/v1/me/player", {
-                    headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json',
-                    }
-                }).then(res => {
-                    setMusica(res.data)
-                })
-            });
-        })
+            axios.get("https://api.spotify.com/v1/me", {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(res => {
+                setUser(res.data)
+
+                refresh_music(() => {
+                    axios.get("https://api.spotify.com/v1/me/player", {
+                        headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json',
+                        }
+                    }).then(res => {
+                        // if(res.status === 204){
+                        //     axios.get("https://api.spotify.com/v1/me/player/currently-playing", {
+                        //         headers: {
+                        //         'Authorization': 'Bearer ' + token,
+                        //         'Content-Type': 'application/json',
+                        //         }
+                        //     }).then(res1 => {
+                        //         setMusica({item: res1.data.items[19].track})
+                        //     })
+                        // }else{
+                            setMusica(res.data)
+                        // }
+                    })
+                });
+            })
         }
     }, [token])
+
+    const playpause = (status) => {
+        const options = {
+            method: 'PUT',
+            url: `https://api.spotify.com/v1/me/player/${status ? "pause" : "play"}`,
+            params: {'': ''},
+            headers: {Authorization: `Bearer ${token}`}
+        };
+
+        axios.request(options)
+    }
 
     const refresh_music = (cb) => {
         cb();
@@ -93,7 +116,11 @@ function Logged(props) {
             {user ? 
             <>
                 <User logout={logout} user={user} />
-                <Player backgroundChange={onClickBackground} musica={musica} />
+                <Player 
+                    playpause={playpause} 
+                    backgroundChange={onClickBackground} 
+                    musica={musica} 
+                />
             </>
             : null}
         </div>

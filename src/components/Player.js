@@ -1,6 +1,7 @@
-import { IconButton, makeStyles, Paper } from '@material-ui/core';
+import { Fab, IconButton, makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
 import WallpaperIcon from '@material-ui/icons/Wallpaper';
+import { Pause, PlayArrow } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     player:{
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Player(props) {
-    const { musica, backgroundChange } = props;
+    const { musica, backgroundChange, playpause } = props;
 
     const classes = useStyles();
 
@@ -80,7 +81,11 @@ function Player(props) {
                 </div>
                 <div className={classes.player_status_wrapper}>
                   <div className={classes.player_status}>
-                    {musica.is_playing ? "Playing" : "Paused"}
+                    <Fab onClick={() => playpause(musica.is_playing)} size="small" color="secondary">
+                      {!musica.is_playing ? 
+                      <PlayArrow />:
+                      <Pause />}
+                    </Fab>
                   </div>
                   <div className={classes.progress}>
                     <div 
